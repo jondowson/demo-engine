@@ -6,4 +6,4 @@ if (cluster.isMaster) {
   for (let i = 0; i<cpus; i++) {
     cluster.fork();  }}
     else {
-      require('./generator');}
+      require('./engine');}
