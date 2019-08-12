@@ -84,9 +84,9 @@ async function postTransactions(jsonObj){
   for (let i = 0; i < dbWrites; i++) {
     //console.log('transaction number: '+ i + ' with ms loop delay of: ' + process.env.TRX_TIMEOUT_MS);
     let genTrx = await generateTrx(jsonObj);
-    limiter.schedule(() => axios.post(process.env.API_IP_PORT + '/write/', genTrx))
+    limiter.schedule(() => axios.post(process.env.DEMO_ENGINE_API_LB + '/write/', genTrx))
     .then((result) => {console.log('Success writing: ' + i + ' ' + genTrx.email)})
-    .then(await timeout(parseInt(process.env.TRX_TIMEOUT_MS)))
+    .then(await timeout(parseInt(process.env.DEMO_ENGINE_TRX_TIMEOUT_MS)))
     .catch(error => console.log('limiter error',error));
   };
 };
@@ -107,16 +107,16 @@ async function main(){
 // defineable parameters - set in .env
 // if running this script via cluster.js - then process.env.DB_WRITES will be multiplied by available CPUs
 // ====================================================
-const dbWrites = process.env.DB_WRITES;
-const csvFilePath= process.env.CSV_PATH;
+const dbWrites = process.env.DEMO_ENGINE_DB_WRITES;
+const csvFilePath= process.env.DEMO_ENGINE_CSV_PATH;
 const limiter = new Bottleneck({
-  maxConcurrent: process.env.BOTTLENECK_MAXCONCURRENT,
-  minTime: process.env.BOTTLENECK_MINTIME
+  maxConcurrent: process.env.DEMO_ENGINE_BOTTLENECK_MAXCONCURRENT,
+  minTime: process.env.DEMO_ENGINE_BOTTLENECK_MINTIME
 });
-if (process.env.AXIOS_RETRY = "exponentialDelay") {
+if (process.env.DEMO_ENGINE_AXIOS_RETRY = "exponentialDelay") {
   axiosRetry(axios,{ retryDelay: axiosRetry.exponentialDelay});
 } else {
-  axiosRetry(axios, {retries: parseInt(process.env.AXIOS_RETRY)});
+  axiosRetry(axios, {retries: parseInt(process.env.DEMO_ENGINE_AXIOS_RETRY)});
 }
 
 // ====================================================
