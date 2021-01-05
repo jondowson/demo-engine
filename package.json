@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "path": "~0.12.7",
-    "axios": "~0.19.0",
+    "axios": "~0.21.1",
     "bottleneck": "~2.19.4",
     "axios-retry": "~3.1.2",
     "cluster": "~0.7.7",
