@@ -4,7 +4,7 @@
   "description": "engine to generate and post transactions to remote api",
   "main": "generator.js",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "path": "~0.12.7",
     "axios": "~0.19.0",
     "bottleneck": "~2.19.4",
